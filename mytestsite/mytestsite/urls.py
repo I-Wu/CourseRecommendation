@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
-from trips.views import find_similarity, home
+from trips.views import find_similarity, get_places, home
 #, recommend_list
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^find_similarity/$', find_similarity),
 	url(r'^home/$', home),
     #url(r'^u/$',recommend_list),
+    url(r'^api/get_places/', get_places),
 ]

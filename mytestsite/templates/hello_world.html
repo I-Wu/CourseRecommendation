@@ -1,9 +1,32 @@
 <!-- hello_world.html -->
+<!-- jQuery !-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<!-- jQuery UI !-->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script>
+
+  $(function() {
+    $("#places").autocomplete({
+      source: "/api/get_places/",
+      select: function (event, ui) { //item selected
+        AutoCompleteSelectHandler(event, ui)
+      },
+      minLength: 2,
+    });
+  });
+
+  function AutoCompleteSelectHandler(event, ui)
+  {
+    var selectedObj = ui.item;
+  }
+
+</script>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>I come from template!!</title>
         <style>
             body {
                background-color: lightyellow;
@@ -15,10 +38,16 @@
     </head>
     <body>
         <h1> Course Recommendation</h1>
+        <div class="ui-widget">
+            <label for="places">Search: </label>
+            <input id="places">
+        </div>  
+        <!--
         <form action="/find_similarity/" method="get">
             <label for = "user_name"> Search for course: </label>
             <input id  = "keyword" type = "text" name = "keyword">
             <input type= "submit" value = "Enter">
         </form>
+        -->
     </body>
 </html>
