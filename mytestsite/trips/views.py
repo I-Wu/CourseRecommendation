@@ -43,3 +43,7 @@ def get_places(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def test(request):
+    return render(request, 'test.html')
