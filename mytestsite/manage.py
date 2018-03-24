@@ -25,6 +25,7 @@ if __name__ == "__main__":
                     sim = sims[d['course_title']]
                 except KeyError:
                     sim = {}
-                Course.data[d['course_title']] = Course(d['course_id'], d['course_title'], sim)
+                Course.data[d['course_title']] = Course(d['course_id'], d['course_title'], 
+                                                        d['course_descr'], d['class_type_descr'], sim)
 
     execute_from_command_line(sys.argv)
