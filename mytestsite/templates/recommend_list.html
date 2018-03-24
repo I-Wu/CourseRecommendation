@@ -1,20 +1,47 @@
+<!-- Bootsrape -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+{% load staticfiles %}
 {% load extras %}
 <html>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <head></head>
+    <head>
+      <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="{% static 'css/grid.css' %}">
+    </head>
+    
     <body>
     There are {{ recommend|length }} recommendation(s):
-    <table>
+
+    <div class="row", style="font-weight: bold;">
+        <div class="col-md-2">
+          <div class="title"> Course Title </div>
+        </div>
+        <div class="col-md-6"> Course Description </div>
+        <div class="col-md-2"> Instructor </div>
+        <div class="col-md-2"> Course Type </div>
+    </div>
+    
+    <!-- <table>
       <td> Course Title </td>
       <td> Course Description </td>
-      <td> Course Type </td>
+      <td> Course Type </td> -->
     
     {% for k, v in recommend.items %}
-    <tr>
-      <td> {{k}} </td>
-      <td> {{description|lookup:k}} </td>
-      <td> {{class_type|lookup:k}} </td>
-    </tr>
-    {% endfor %}    
+    <div class="row">
+      <div class="col-md-2"> 
+        <div class="title"> {{k}} </div> 
+      </div>
+      <div class="col-md-6"> {{description|lookup:k}} </div>
+      <div class="col-md-2"> {{class_type|lookup:k}} </div>
+      <div class="col-md-2"> </div>
+      <!-- <tr>
+        <td> {{k}} </td>
+        <td> {{description|lookup:k}} </td>
+        <td> {{class_type|lookup:k}} </td>
+      </tr> -->
+    </div>
+    {% endfor %}
     </body>
 </html>
