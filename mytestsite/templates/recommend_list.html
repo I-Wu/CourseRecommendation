@@ -1,3 +1,4 @@
+{% load extras %}
 <html>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <head></head>
@@ -11,8 +12,8 @@
     {% for k, v in recommend.items %}
     <tr>
       <td> {{k}} </td>
-      <td> {{description[k]}} </td>
-      <td> {{class_type[k]}} </td>
+      <td> {{description|lookup:k}} </td>
+      <td> {{class_type|lookup:k}} </td>
     </tr>
     {% endfor %}    
     </body>

@@ -25,7 +25,7 @@ class Course():
         descriptions = {}
         class_types = {}
         for cname, value in recs.items():
-            course = Course.data[course_name]
+            course = Course.data[cname]
             descriptions[cname] = course.description
             class_types[cname] = course.class_type
         return recs, descriptions, class_types
