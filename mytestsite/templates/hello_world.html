@@ -17,13 +17,16 @@
       select: function (event, ui) { //item selected
         AutoCompleteSelectHandler(event, ui)
       },
-      minLength: 2,
     });
   });
 
   function AutoCompleteSelectHandler(event, ui)
   {
-    var selectedObj = ui.item;
+    var selected_course = ui.item.label;
+    //assign value back to the form element
+    $('#keyword').val(selected_course);
+    //submit the form
+    $('#myform').submit();
   }
 
 </script>
@@ -38,42 +41,18 @@
         <link rel="stylesheet" href="{% static 'css/signin.css' %}">
     </head>
 
-
-    <!-- <body class="text-center">
-    <form class="form-signin">
-      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>w
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-    </form>
-  </body> -->
-
     <body class="text-center">
         <form class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Course Recommendation</h1>
-        
-            <div class="ui-widget">
-
-                <!-- <label for="places">Search: </label> -->
-                <input id="places">
-            </div>  
-        
+        <div class = "ui-widget">
+            <label for = "places">Search: </label>
+            <input id = "places">
+        </div>  
         </form>
-        <!--
-        <form action="/find_similarity/" method="get">
-            <label for = "user_name"> Search for course: </label>
-            <input id  = "keyword" type = "text" name = "keyword">
-            <input type= "submit" value = "Enter">
+        <form action = "/find_similarity/" method="get" id = "myform">
+            <!-- <label for = "user_name"> Search for course: </label> -->
+            <input type = "hidden" id  = "keyword" type = "text" name = "keyword">
+            <input type = "submit" value = "Enter" style = "display: none;">
         </form>
-        -->
     </body>
 </html>
