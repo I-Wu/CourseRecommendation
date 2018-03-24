@@ -13,13 +13,16 @@
       select: function (event, ui) { //item selected
         AutoCompleteSelectHandler(event, ui)
       },
-      minLength: 2,
     });
   });
 
   function AutoCompleteSelectHandler(event, ui)
   {
-    var selectedObj = ui.item;
+    var selected_course = ui.item.label;
+    //assign value back to the form element
+    $('#keyword').val(selected_course);
+    //submit the form
+    $('#myform').submit();
   }
 
 </script>
@@ -38,16 +41,14 @@
     </head>
     <body>
         <h1> Course Recommendation</h1>
-        <div class="ui-widget">
-            <label for="places">Search: </label>
-            <input id="places">
+        <div class = "ui-widget">
+            <label for = "places">Search: </label>
+            <input id = "places">
         </div>  
-        <!--
-        <form action="/find_similarity/" method="get">
-            <label for = "user_name"> Search for course: </label>
-            <input id  = "keyword" type = "text" name = "keyword">
-            <input type= "submit" value = "Enter">
+        <form action = "/find_similarity/" method="get" id = "myform">
+            <!-- <label for = "user_name"> Search for course: </label> -->
+            <input type = "hidden" id  = "keyword" type = "text" name = "keyword">
+            <input type = "submit" value = "Enter" style = "display: none;">
         </form>
-        -->
     </body>
 </html>

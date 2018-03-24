@@ -21,6 +21,7 @@ def find_similarity(request):
     if 'keyword' in request.GET:
         recommend, description, class_type = Course.get_recommend_courses((request.GET['keyword']))
         #description: (k, v) = (title, description)
+        print("comes here!!!")
         return render_to_response('recommend_list.html',locals())
         #return HttpResponse('Welcome!~' + request.GET['keyword'])
     else:
@@ -29,15 +30,7 @@ def find_similarity(request):
 def get_places(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        #places = Place.objects.filter(city__icontains=q)
-        print(q)
         results = Course.get_match(q)
-        '''
-        for pl in places:
-            place_json = {}
-            place_json = pl.city + "," + pl.state
-            results.append(place_json)
-        '''
         data = json.dumps(results)
     else:
         data = 'fail'
