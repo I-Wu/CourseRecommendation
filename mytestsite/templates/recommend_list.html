@@ -1,0 +1,19 @@
+<html>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <head></head>
+    <body>
+    There are {{ recommend|length }} recommendation(s):
+    <table>
+      <td> Course Title </td>
+      <td> Course Description </td>
+      <td> Course Type </td>
+    
+    {% for k, v in recommend.items %}
+    <tr>
+      <td> {{k}} </td>
+      <td> {{description[k]}} </td>
+      <td> {{class_type[k]}} </td>
+    </tr>
+    {% endfor %}    
+    </body>
+</html>

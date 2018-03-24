@@ -12,4 +12,6 @@ class Course():
 
     @staticmethod
     def get_recommend(course_name):
-        return Course.data[course_name].recommendation
+    	return Course.data[course_name].recommendation
+
+    

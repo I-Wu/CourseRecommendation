@@ -17,9 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
 from trips.views import find_similarity, home
+#, recommend_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^find_similarity/$', find_similarity),
 	url(r'^home/$', home),
+    #url(r'^u/$',recommend_list),
 ]

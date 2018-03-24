@@ -1,4 +1,5 @@
 from django.shortcuts import render, render_to_response
+from django.template import loader, Context
 
 # Create your views here.
 from django.http import HttpResponse
@@ -15,8 +16,9 @@ def home(request):
 
 def find_similarity(request):
     if 'keyword' in request.GET:
-        recommend = Course.get_recommend((request.GET['keyword']))
-        #return render()
-        return HttpResponse('Welcome!~' + request.GET['keyword'])
+        recommend, description, class_type = Course.get_recommend((request.GET['keyword']))
+        #description: (k, v) = (title, description)
+        return render_to_response('recommend_list.html',locals())
+        #return HttpResponse('Welcome!~' + request.GET['keyword'])
     else:
         return HttpResponse('not allowed')
