@@ -4,9 +4,16 @@ from collections import Counter
 import json
 import pickle
 import numpy as np
-import matplotlib.pyplot as plt
-import sys
 from sklearn.decomposition import PCA
+from pprint import pprint
+ 
+import sys
+import pickle
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import proj3d
+
 
 """ Sample input
 filename = "./packet/CryptXXX/small_train"
@@ -31,6 +38,8 @@ def main():
     print(course)
     print("Begin Preprocessing")
     appeared = {}
+    title2index = {}
+    idx = 0
     for course in l:
         # Avoid reappearance of course title
         title = course['course_title']
@@ -44,15 +53,18 @@ def main():
         if course['course_title'] == 'Topics:' or course['course_title'] == 'Seminar:' or course['course_title'] == 'Independent Study':
             continue
 
+        title2index[title] = idx
         c = nlp(title + " " + text)
         semantics.append(c.vector)
         courses.append(title)
+        idx = idx + 1
 
 
     Xtrain = np.asarray(semantics)
     pca = PCA()
     reduced = pca.fit_transform(Xtrain)
-    print("examples: ", len(reduced))
+
+
     # Save the PCA vectors
     with open("title_packet_pcainfo", "wb") as f:
         pickle.dump(reduced, f)
@@ -60,15 +72,35 @@ def main():
         pickle.dump(courses, f)
 
 
+
+    with open('./title_test/course_batch_final_with_title_space.json') as data_file:    
+        data = json.load(data_file)
+
+    title = []
+    title.append('Modern Italy')
+
+    for k, v in data['Modern Italy'].items():
+        title.append(k)
+
+    for t in range(1, len(title)):
+        for k, v in data[title[t]].items():
+            title.append(k)
+    word2vec = []
+    print(len(word2vec))
+    for t in title:
+        word2vec.append(semantics[title2index[t]])
+    word2vec_reduced = pca.fit_transform(word2vec)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    col = ax.scatter(word2vec_reduced[:,0], word2vec_reduced[:,1])
+    for i in range(len(word2vec)):
+        ax.annotate(title[i], (word2vec_reduced[i, 0],word2vec_reduced[i, 1]))
+    plt.title('Modern Italy')
+    plt.savefig('./neighbor_pca_modern_italy.jpg')
+
 if FLAG == 'INIT':
     main()
- 
-import sys
-import pickle
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from mpl_toolkits.mplot3d import proj3d
+
 
 
 def text_display(text):
@@ -86,32 +118,31 @@ with open('title_packet_pcainfo', "rb") as f:
     reduced = pickle.load(f)
     Xtrain = pickle.load(f)
     Ytrain = pickle.load(f)
-    print(Xtrain)
-    print(Ytrain)
-    print(Ytrain)
     xmin = -4
     xmax = 4
     ymin = -4
     ymax = 4
     fig = plt.figure()
 
-    n = 100 # len(Xtrain)
+    s = 5000
+    e = 5100 # len(Xtrain)
     # Build the subgraph
     if flag is "3D":
         ax1 = fig.add_subplot(111, projection = "3d")
         col = ax1.scatter(reduced[:,0], reduced[:,1], reduced[:,2], s=100, c=Ytrain, alpha=0.5, picker=True)
     else:
         ax1 = fig.add_subplot(111)
-        col = ax1.scatter(reduced[:n,0], reduced[:n,1])
-        for i in range(n):
+        col = ax1.scatter(reduced[s:e,0], reduced[s:e,1])
+        for i in range(s, e):
             ax1.annotate(Ytrain[i], (reduced[i, 0],reduced[i, 1]))
 
-    fig.set_dpi(300)
+    #fig.set_dpi(300)
     fig.canvas.mpl_connect('pick_event', onpick)
-    fig.set_size_inches(20, 20)
+    fig.set_size_inches(20, 10)
     plt.axis([xmin,xmax,ymin,ymax])
     plt.title('Top 2 Principal Components')
     plt.xlabel('Dimension 1')
     plt.ylabel('Dimension 2')
     plt.savefig('./jpg/similarity_cnn.jpg')
     plt.show()
+
