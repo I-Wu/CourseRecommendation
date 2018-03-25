@@ -19,10 +19,10 @@ def home(request):
 
 def find_similarity(request):
     if 'keyword' in request.GET:
-        recommend, description, class_type = Course.get_recommend_courses((request.GET['keyword']))
+        recommend, description, instructor, class_type = Course.get_recommend_courses((request.GET['keyword']))
         #description: (k, v) = (title, description)
         print("comes here!!!")
-        return render_to_response('recommend_list.html',locals())
+        return render_to_response('recommend_list.html', locals())
         #return HttpResponse('Welcome!~' + request.GET['keyword'])
     else:
         return HttpResponse('No result!!!')
