@@ -53,62 +53,35 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.mylabel {
+  margin: auto;
+  text-align: center;
+  width: 700px;
+}
 
 .ui-widget {
   padding-right: 100px;
+  font-size: 12pt;
 }
 
 .ui-autocomplete-input {
-  width: 500px;
+  margin: auto;
+  font-size: 12pt;
+  width: 700px;
 }
 
 .ui-autocomplete {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  float: left;
-  display: none;
-  min-width: 160px;
-  _width: 160px;
-  padding: 4px 0;
-  margin: 2px 0 0 0;
-  list-style: none;
-  background-color: #ffffff;
-  border-color: #ccc;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-width: 1px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
+    max-height: 200px;
+    max-width: 700px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    border:1px solid #222;
+    position:absolute;
+}
 
-  .ui-menu-item {
-    display: block;
-    padding: 3px 15px;
-    clear: both;
-    font-weight: normal;
-    line-height: 18px;
-    color: #555555;
-    white-space: nowrap;
+.ui-menu-item{
+    font-size: 12pt;
+    width: 700px;
     text-align: left;
-
-    .ui-state-active, .ui-state-hover {
-      color: #ffffff;
-      text-decoration: none;
-      background-color: #0088cc;
-      border-radius: 0;
-      -webkit-border-radius: 0;
-      -moz-border-radius: 0;
-      background-image: none;
-    }
-  }
 }
