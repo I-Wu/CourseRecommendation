@@ -12,31 +12,30 @@
     </head>
     
     <body>
-    There are {{ recommend|length }} recommendation(s):
+    There are {{ recommends|length }} recommendation(s):
 
     <div class="row", style="font-weight: bold;">
         <div class="col-md-2">
           <div class="title"> Course Title </div>
         </div>
         <div class="col-md-6"> Course Description </div>
-        <div class="col-md-2"> Instructor </div>
+        <div class="col-md-1"> MyProfessorRate </div>
+        <div class="col-md-1"> Instructor </div>
         <div class="col-md-2"> Course Type </div>
     </div>
     
-    {% for k, v in recommend.items %}
+    {% for rec in recommends %}
     <div class="row">
       <div class="col-md-2"> 
-        <div class="title"> {{k}} </div> 
+        <div class="title"> {{rec.title}} </div> 
       </div>
-      <div class="col-md-6"> {{description|lookup:k}} </div>
-      <div class="col-md-2"> {{instructor|lookup:k}} </div>
-      <div class="col-md-2"> {{class_type|lookup:k}} </div>
+      <div class="col-md-6"> {{rec.description}} </div>
+      <div class="col-md-1"> 
+        <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid={{rec.tid}}" > {{rec.rating}} </a>
+      </div>
+      <div class="col-md-1"> {{rec.instructor}} </div>
+      <div class="col-md-2"> {{rec.class_type}} </div>
       <div class="col-md-2"> </div>
-      <!-- <tr>
-        <td> {{k}} </td>
-        <td> {{description|lookup:k}} </td>
-        <td> {{class_type|lookup:k}} </td>
-      </tr> -->
     </div>
     {% endfor %}
     </body>

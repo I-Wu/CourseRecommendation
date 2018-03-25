@@ -5,7 +5,7 @@ import json
 from trips.models import Course
 
 courses_file = '../data/src/courses_with_instructor.json'
-sims_file = '../data/course_batch_final.json'
+sims_file = '../data/course_batch_final_with_title.json'
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mytestsite.settings")
@@ -27,6 +27,7 @@ if __name__ == "__main__":
                 try:
                     sim = sims[d['course_title']]
                 except KeyError:
+                    # print(d['course_title'])
                     sim = {}
 
                 try:
@@ -35,7 +36,7 @@ if __name__ == "__main__":
                     instructor = "N/A"
 
                 Course.data[d['course_title']] = Course(d['course_id'], d['course_title'],
-                                                        d['course_descr'], d['class_type_descr'],
-                                                        instructor, sim)
+                                                        d['course_descr'], 0, d['class_type_descr'],
+                                                        instructor, 577620, sim)
 
     execute_from_command_line(sys.argv)
