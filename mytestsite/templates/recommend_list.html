@@ -24,6 +24,20 @@
         <div class="col-md-2"> Course Type </div>
     </div>
     
+    <div class="row", style="font-weight: bold;">
+      <div class="col-md-2">
+        <div class="title"> {{course.title}} </div>
+      </div>
+      <div class="col-md-6"> {{course.description}} </div>
+      <div class="col-md-1"> 
+        <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid={{course.tid}}" > {{course.rating}} </a>
+      </div>
+      <div class="col-md-1"> 
+        <a href="http://www.ratemyprofessors.com/search.jsp?queryoption=HEADER&queryBy=teacherName&schoolName=&schoolID=&query={{ course.instructor|req_filter }}"> {{course.instructor}} </a>
+      </div>
+      <div class="col-md-1"> {{course.class_type}} </div>
+    </div>
+
     {% for rec in recommends %}
     <div class="row">
       <div class="col-md-2"> 
@@ -33,7 +47,9 @@
       <div class="col-md-1"> 
         <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid={{rec.tid}}" > {{rec.rating}} </a>
       </div>
-      <div class="col-md-1"> {{rec.instructor}} </div>
+      <div class="col-md-1"> 
+        <a href="http://www.ratemyprofessors.com/search.jsp?queryoption=HEADER&queryBy=teacherName&schoolName=&schoolID=&query={{ rec.instructor|req_filter }}"> {{rec.instructor}} </a>
+      </div>
       <div class="col-md-2"> {{rec.class_type}} </div>
       <div class="col-md-2"> </div>
     </div>

@@ -6,10 +6,11 @@ class Course():
 
     data = {}
 
-    def __init__(self, cid, title, description, rating, class_type, 
+    def __init__(self, cid, nyu_course_id, title, description, rating, class_type, 
                  instructor, tid, recommendation):
         """ Initialize a Course recommendation """
         self.id = cid
+        self.nyu_course_id = nyu_course_id
         self.title = title
         self.description = description
         self.rating = rating
@@ -21,6 +22,10 @@ class Course():
     @staticmethod
     def get_match(keyword):
         return [k for k, v in Course.data.items() if re.search(keyword, k, re.IGNORECASE)]
+
+    @staticmethod
+    def get_course(course_name):
+        return Course.data[course_name]
 
     @staticmethod
     def get_recommend_courses(course_name):

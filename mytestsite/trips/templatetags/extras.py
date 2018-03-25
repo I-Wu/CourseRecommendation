@@ -3,9 +3,15 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter
 def lookup(value, key):
     return value.get(key, [])
+
+
+@register.filter
+def req_filter(string):
+    return string.replace(',', '+')
 
 #@register.filter(name='lookup')
 #def cut(value, arg):

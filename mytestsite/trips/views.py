@@ -19,13 +19,13 @@ def home(request):
 
 def find_similarity(request):
     if 'keyword' in request.GET:
+        course = Course.get_course((request.GET['keyword']))
         recommends = Course.get_recommend_courses((request.GET['keyword']))
-        #description: (k, v) = (title, description)
         print("comes here!!!")
         return render_to_response('recommend_list.html', locals())
-        #return HttpResponse('Welcome!~' + request.GET['keyword'])
     else:
         return HttpResponse('No result!!!')
+
 
 def get_places(request):
     if request.is_ajax():
