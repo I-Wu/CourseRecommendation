@@ -6,7 +6,9 @@ from trips.models import Course
 
 courseid_file = '../courseid.json'
 courses_file = '../data/courses_with_courseid.json'
-sims_file = '../data/course_batch_final_with_title.json'
+sims1_file = '../data/course_batch_final_with_title.json'
+sims2_file = '../data/course_batch_final_no_title.json'
+sims3_file = '../data/glove_2000.json'
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mytestsite.settings")
@@ -20,20 +22,26 @@ if __name__ == "__main__":
         ) from exc
 
     # Read the course data
+    f4 = open(sims2_file, 'r')
+    f5 = open(sims3_file, 'r')
+    sims2 = json.loads(f4.readlines()[0])
+    sims3 = json.loads(f5.readlines()[0])
     with open(courses_file, 'r') as f:
-        with open(sims_file, 'r') as f2:
+        with open(sims1_file, 'r') as f2:
             with open(courseid_file, 'r') as f3:
                 datas = json.loads(f.readlines()[0])
-                sims = json.loads(f2.readlines()[0])
+                sims1 = json.loads(f2.readlines()[0])
                 nyu_course_ids = json.loads(f3.readlines()[0])
                 err_cnt = 0
                 crt = 0
                 for d in datas:
-                    try:
-                        sim = sims[d['course_title']]
-                    except KeyError:
-                        # print(d['course_title'])
-                        sim = {}
+                    sim = []
+                    for s in [sims1, sims2, sims3]:
+                        try:
+                            sim.append(s[d['course_title']])
+                        except KeyError:
+                            # print(d['course_title'])
+                            sim.append({})
 
                     try:
                         instructor = d['instructor_name']

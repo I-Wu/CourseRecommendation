@@ -31,7 +31,10 @@ class Course():
     def get_recommend_courses(course_name):
         """Get a dictionary of the course and their descriptions."""
         recs = Course.get_recommend(course_name)
-        return [Course.data[cname] for cname, _ in recs.items()]
+        ret = []
+        for rec in recs:
+            ret.append([Course.data[cname] for cname, _ in rec.items()])
+        return ret
 
     @staticmethod
     def get_recommend(course_name):

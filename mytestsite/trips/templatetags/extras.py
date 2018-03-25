@@ -13,6 +13,15 @@ def lookup(value, key):
 def req_filter(string):
     return string.replace(',', '+')
 
+
+@register.filter
+def return_item(l, i):
+    try:
+        return l[i]
+    except:
+        return None
+
+
 #@register.filter(name='lookup')
 #def cut(value, arg):
 #    return value[arg]

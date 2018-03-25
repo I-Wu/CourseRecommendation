@@ -1,8 +1,5 @@
 <!-- hello_world.html -->
 
-<!-- Bootsrape -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 <!-- jQuery !-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <!-- jQuery UI !-->
@@ -36,22 +33,142 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Bootsrape -->
+        <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Custom fonts for this template -->
+        <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
         <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+        <link href="{% static 'css/landing-page.css' %}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <!-- <link rel="stylesheet" href="{% static 'css/signin.css' %}"> -->
     </head>
 
-    <body class="text-center">
-        <form class="form-signin">
-        <label class="mylabel" style = "font-size: 25pt">Course Recommendation</h1>
-        <div class = "ui-widget">
-            <label for = "places" style = "display: none;">Search: </label>
-            <input id = "places">
-        </div>  
-        </form>
-        <form action = "/find_similarity/" method="get" id = "myform">
-            <!-- <label for = "user_name"> Search for course: </label> -->
-            <input type = "hidden" id  = "keyword" type = "text" name = "keyword">
-            <input type = "submit" value = "Enter" style = "display: none;">
-        </form>
+    <body>
+      <!-- Navigation -->
+      <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">Coursor</a>
+          <a class="btn btn-primary" href="#">Sign In</a>
+        </div>
+      </nav>
+
+      <!-- Masthead -->
+      <header class="masthead text-white text-center">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-9 mx-auto">
+              <h1 class="mb-5">Find Recommendations for your sweety courses!</h1>
+            </div>
+            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+              <form>
+                <div class="form-row">
+                  <div class="col-12 col-md-9 mb-2 mb-md-0">
+                    <div class = "ui-widget">
+                      <label for = "places" style = "display: none;">Search: </label>
+                      <input id = "places", class="form-control form-control-lg", placeholder="Basic Algorithm......">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </header>
+    
+    <!-- Icons Grid -->
+    <section class="features-icons bg-light text-center">
+      <div class="container">
+        <div class="row">
+
+        </div>
+      </div>
+    </section>
+    
+    <!-- Image Showcases -->
+    <section class="showcase">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters">
+
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../static/img/word2vec.jpeg');"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>Machine Intelligence Recommendation</h2>
+            <p class="lead mb-0">We apply Natural Language Processing and machine learning model on the course description to get the best fit for recommendation!</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 text-white showcase-img" style="background-image: url('../static/img/professor.jpg');"></div>
+          <div class="col-lg-6 my-auto showcase-text">
+            <h2>Quick Link with RateMyProfessor</h2>
+            <p class="lead mb-0">We parse full course data from NYU data portal and linked with the widely-known rating website RateMyProfessor!</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../static/img/bg-showcase-3.jpg');"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <h2>A more concise way to get the CourseInfo</h2>
+            <p class="lead mb-0">While we found that the old Albert is not so easy to understand at first sight, we gave you a cleaner and more flexible design!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <a href="#">About</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Contact</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Privacy Policy</a>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; NYU Sweety Course 2018.</p>
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+                <a href="#">
+                  <i class="fa fa-facebook fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item mr-3">
+                <a href="#">
+                  <i class="fa fa-twitter fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram fa-2x fa-fw"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <form action = "/find_similarity/" method="get" id = "myform">
+        <!-- <label for = "user_name"> Search for course: </label> -->
+        <input type = "hidden" id  = "keyword" type = "text" name = "keyword">
+        <input type = "submit" value = "Enter" style = "display: none;">
+    </form>
+
     </body>
 </html>

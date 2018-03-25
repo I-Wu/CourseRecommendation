@@ -1,25 +1,48 @@
-<!-- Bootsrape -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 
 {% load staticfiles %}
 {% load extras %}
 <html>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <head>
+      <!-- Bootsrape -->
+        <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Custom fonts for this template -->
+        <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
       <!-- Custom styles for this template -->
       <link rel="stylesheet" href="{% static 'css/grid.css' %}">
+      <link href="{% static 'css/landing-page.css' %}" rel="stylesheet">
+    
     </head>
     
     <body>
-    There are {{ recommends|length }} recommendation(s):
+    <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top">
+      <div class="container">
+        <a class="navbar-brand" href="/home">Coursor</a>
+        <a class="btn btn-primary" href="#">Sign In</a>
+      </div>
+    </nav>
 
+    <div class="row", style="font-size: 24">
+      <div class="col-md-12 col-lg-8 col-xl-4 mx-auto">
+         Discover the world through these {{ t_recommend|length }} courses!
+      </div>
+      <div class="col-md-12 col-lg-8 col-xl-4 mx-auto">
+        <a class="btn btn-primary" href="/find_similarity/?keyword={{keyword}}">Syntactic1</a>
+        <a class="btn btn-primary" href="/find_similarity/?keyword={{keyword}}&t=1">Syntactic2</a>
+        <a class="btn btn-primary" href="/find_similarity/?keyword={{keyword}}&t=2">Semantic</a>
+      </div>
+    </div>
+    
     <div class="row", style="font-weight: bold;">
         <div class="col-md-2">
           <div class="title"> Course Title </div>
         </div>
         <div class="col-md-6"> Course Description </div>
-        <div class="col-md-1"> MyProfessorRate </div>
+        <div class="col-md-1"> RateMyPro </div>
         <div class="col-md-1"> Instructor </div>
         <div class="col-md-2"> Course Type </div>
     </div>
@@ -38,7 +61,7 @@
       <div class="col-md-1"> {{course.class_type}} </div>
     </div>
 
-    {% for rec in recommends %}
+    {% for rec in t_recommend %}
     <div class="row">
       <div class="col-md-2"> 
         <div class="title"> {{rec.title}} </div> 
