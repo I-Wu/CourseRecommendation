@@ -1,5 +1,5 @@
 from django.db import models
-
+import re
 
 class Course():
     """The model for a course."""
@@ -17,7 +17,7 @@ class Course():
 
     @staticmethod
     def get_match(keyword):
-        return [k for k, v in Course.data.items() if keyword in k]
+        return [k for k, v in Course.data.items() if re.search(keyword, k, re.IGNORECASE)]
 
     @staticmethod
     def get_recommend_courses(course_name):
