@@ -4,9 +4,15 @@ import spacy
 from collections import OrderedDict
 import pickle
 import matplotlib.pyplot as plt
-import time;  # This is required to include time module.
+import time  # This is required to include time module.
 import sys
-import gensim.models.
+
+from gensim.scripts.glove2word2vec import glove2word2vec
+from gensim.models import KeyedVectors
+from gensim.utils import tokenize
+import scipy.spatial as ss
+import numpy as np
+
 
 class _Course:
     title = ""
@@ -46,21 +52,9 @@ class priority_queue:
         self._list.pop()
     
     def serialize(self):
-        '''
-        if len(self._list) == 10:
-            print("It's ", len(self._list))
-        '''
         dic = OrderedDict()
         for i in self._list:
             dic[i.title] = i.key
-        
-        '''
-            for j in self._list:
-                print(j.title, j.key)
-            print("--")
-            for k, v in dic.items():
-                print("key = ", k, "val = ", v)
-        '''
         return dic
 
 def to_json(similarity):
@@ -69,16 +63,48 @@ def to_json(similarity):
         dic[k] = v.serialize()
         if len(dic[k]) < 10:
             print("It's not 10 after to OrderedDict ", k)
-
     return dic
+
+def glove_sim(wordvec1, wordvec2):
+    def get_embedding(word):
+        token = tokenize(word.lower())
+        embedding = np.zeros(100)
+        for t in token:
+            try:
+                embedding = embedding + model[t]
+            except:
+                embedding = embedding
+        return embedding / np.linalg.norm(embedding)
+
+    embedding1 = get_embedding(wordvec1)
+    embedding2 = get_embedding(wordvec2)
+
+    sim = 1 - ss.distance.cosine(embedding1, embedding2)
+
+    print('similarity = ', sim)
+    return sim
 
 l = []
 
 COURSES = sys.argv[1]
 PATH = sys.argv[2]
 MODEL = sys.argv[3]
+FLAG = sys.argv[4]
 if MODEL is None:
     MOEL = 'spacy'
+
+model = []
+if MODEL == 'glove':
+    glove_input_file = './data/glove.6B/glove.6B.100d.txt'
+    word2vec_output_file = './data/glove.6B/wv/glove.6B.100d.txt.word2vec'
+    glove2word2vec(glove_input_file, word2vec_output_file)
+    filename = './data/glove.6B/wv/glove.6B.100d.txt.word2vec'
+    model = KeyedVectors.load_word2vec_format(filename, binary=False)
+
+
+print("COURSE = ", COURSES)
+print("PATH = ", PATH)
+print("MODEL= ", MODEL)
 
 with open(COURSES) as json_data:
     d = json.load(json_data)
@@ -104,16 +130,18 @@ for course in l:
 
     c = {}
     text = course['course_descr']
-    if text == 'null' or text == 'n/a':
+    if text.replace(' ', '') == 'null' or text.replace(' ', '') == 'n/a':
         continue
-    if course['course_title'] == 'Topics:' or course['course_title'] == 'Seminar:' or course['course_title'] == 'Independent Study':
+    if title.replace(' ', '') == 'Topics:' or title.replace(' ', '') == 'Seminar:' or title.replace(' ', '') == 'Independent Study':
         continue
 
     c['course_title'] = title 
     c['descr'] = text
-    c['doc'] = nlp(title+text)
+    c['doc'] = nlp(title+ " " +text)
     course_lists.append(c)
-
+    if FLAG == 'TEST':
+        if i > 50:
+            break
 
 print(len(course_lists))
 print("Preprocessing Time: ", time.time() - ticks)
@@ -137,8 +165,11 @@ for i in range(len(course_lists)):
         course_j = course_lists[j]
         title_j = course_j['course_title']
         
-        if model == 'gensim':
-            sim = gm.wv.similarity(course_i['course_descr'], course_j['course_descr'])
+        #if MODEL == 'gensim':
+        #    sim = gm.wv.similarity(course_i['course_descr'], course_j['course_descr'])
+        #else:
+        if MODEL == 'glove':
+            sim = glove_sim(course_i['descr'], course_j['descr'])
         else:
             sim = course_i['doc'].similarity(course_j['doc'])
         #print("Running on Course: ", j, "sim = ", sim)
